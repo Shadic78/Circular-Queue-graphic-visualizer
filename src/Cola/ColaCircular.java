@@ -48,6 +48,9 @@ public class ColaCircular {
             actualSize--;
             // Va en sentido del reloj
             inicio++;
+            if(inicio >= maxSize) {
+                inicio = 0;
+            }
         }  
         else {
             throw new ColaVaciaException();

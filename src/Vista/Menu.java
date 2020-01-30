@@ -5,15 +5,21 @@
  */
 package Vista;
 
+import Codigo.VentanaPrincipal;
+import Cola.ColaCircular;
+import Excepciones.ColaLlenaException;
+import Excepciones.ColaVaciaException;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 /**
  *
  * @author Usuario
  */
 public class Menu extends javax.swing.JFrame {
+    private VentanaPrincipal ventana;
 
-    /**
-     * Creates new form Menu
-     */
     public Menu() {
         initComponents();
     }
@@ -27,96 +33,157 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        TxtTamCola = new javax.swing.JTextField();
+        BtnTamCola = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        BtnEliminarElemento = new javax.swing.JButton();
+        BtnInsertarElemento = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        TxtInicioCola = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(160, 355));
+        getContentPane().setLayout(null);
 
-        jButton1.setText("+");
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel1.setText("Longitud");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(10, 50, 50, 15);
+        getContentPane().add(TxtTamCola);
+        TxtTamCola.setBounds(10, 70, 50, 20);
 
-        jButton2.setText("-");
+        BtnTamCola.setText("Aceptar");
+        BtnTamCola.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnTamColaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnTamCola);
+        BtnTamCola.setBounds(30, 100, 80, 23);
 
-        jButton3.setText("Set");
+        jLabel2.setText("Elementos de la cola");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(20, 150, 130, 14);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(19, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3))
-                .addContainerGap(55, Short.MAX_VALUE))
-        );
+        BtnEliminarElemento.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        BtnEliminarElemento.setText("-");
+        BtnEliminarElemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarElementoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnEliminarElemento);
+        BtnEliminarElemento.setBounds(40, 240, 60, 60);
+
+        BtnInsertarElemento.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        BtnInsertarElemento.setText("+");
+        BtnInsertarElemento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnInsertarElementoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BtnInsertarElemento);
+        BtnInsertarElemento.setBounds(40, 170, 60, 60);
+
+        jLabel3.setText("Crear una cola nueva");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(10, 20, 130, 14);
+        getContentPane().add(TxtInicioCola);
+        TxtInicioCola.setBounds(80, 70, 50, 20);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setText("Indice inicial");
+        getContentPane().add(jLabel4);
+        jLabel4.setBounds(70, 50, 80, 15);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void BtnTamColaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnTamColaActionPerformed
+        int tamCola = Integer.parseInt(getTxtTamCola().getText());
+        int inicio = Integer.parseInt(getTxtInicioCola().getText());
+        ColaCircular colaNueva = new ColaCircular(inicio, tamCola);
+        getVentana().cambiarCola(colaNueva);
+    }//GEN-LAST:event_BtnTamColaActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
+    private void BtnInsertarElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnInsertarElementoActionPerformed
+        try {
+            int elemento = Integer.parseInt(JOptionPane.showInputDialog("Ingresa un numero"));
+            getVentana().getCola().insertar(elemento); 
+        }
+        catch(ColaLlenaException ex) {
+            JOptionPane.showMessageDialog(null, "La cola esta llena", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BtnInsertarElementoActionPerformed
+
+    private void BtnEliminarElementoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarElementoActionPerformed
+        try {
+            getVentana().getCola().quitar();            
+        }
+        catch(ColaVaciaException ex) {
+            JOptionPane.showMessageDialog(null, "La cola esta vacia", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }        
+    }//GEN-LAST:event_BtnEliminarElementoActionPerformed
+
+    public JButton getBtnEliminarElemento() {
+        return BtnEliminarElemento;
+    }
+
+    public void setBtnEliminarElemento(JButton BtnEliminarElemento) {
+        this.BtnEliminarElemento = BtnEliminarElemento;
+    }
+
+    public JButton getBtnInsertarElemento() {
+        return BtnInsertarElemento;
+    }
+
+    public void setBtnInsertarElemento(JButton BtnInsertarElemento) {
+        this.BtnInsertarElemento = BtnInsertarElemento;
+    }
+
+    public JButton getBtnTamCola() {
+        return BtnTamCola;
+    }
+
+    public void setBtnTamCola(JButton BtnTamCola) {
+        this.BtnTamCola = BtnTamCola;
+    }
+
+    public JTextField getTxtTamCola() {
+        return TxtTamCola;
+    }
+
+    public void setTxtTamCola(JTextField TxtTamCola) {
+        this.TxtTamCola = TxtTamCola;
+    }
+
+    public JTextField getTxtInicioCola() {
+        return TxtInicioCola;
+    }
+
+    public void setTxtInicioCola(JTextField TxtInicioCola) {
+        this.TxtInicioCola = TxtInicioCola;
+    }
+
+    public VentanaPrincipal getVentana() {
+        return ventana;
+    }
+
+    public void setVentana(VentanaPrincipal ventana) {
+        this.ventana = ventana;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton BtnEliminarElemento;
+    private javax.swing.JButton BtnInsertarElemento;
+    private javax.swing.JButton BtnTamCola;
+    private javax.swing.JTextField TxtInicioCola;
+    private javax.swing.JTextField TxtTamCola;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }

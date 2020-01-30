@@ -2,10 +2,13 @@ package Codigo;
 
 import Cola.ColaCircular;
 import Vista.AnilloCola;
+import Vista.Menu;
 import processing.core.*;
 
 public class VentanaPrincipal extends PApplet {
-    AnilloCola anillo;
+    private AnilloCola anillo;
+    private Menu menu;
+    private ColaCircular cola;
     int colorBackground = color(12,32,123);
         
     @Override
@@ -15,14 +18,14 @@ public class VentanaPrincipal extends PApplet {
     
     @Override
     public void setup() {
-        background(colorBackground);
-        ColaCircular cola = new ColaCircular(3, 12);
-        cola.insertar(1);
-        cola.insertar(2);
-        cola.insertar(3);
-        cola.insertar(4);   
-        cola.insertar(5);
-        System.out.println(cola);
+        background(colorBackground);        
+        cola = new ColaCircular(0, 10);
+        
+        menu = new Menu();
+        menu.setVentana(this);
+        menu.setAlwaysOnTop(true);
+        menu.setLocationRelativeTo(null);
+        menu.setVisible(true);
         
         anillo = new AnilloCola(cola, this);
         anillo.setColorBackground(colorBackground);
@@ -32,6 +35,19 @@ public class VentanaPrincipal extends PApplet {
     public void draw() {
         background(colorBackground);
         anillo.draw();
+    }
+
+    public void cambiarCola(ColaCircular cola) {
+        anillo.setCola(cola);
+        setCola(cola);
+    }
+    
+    public ColaCircular getCola() {
+        return cola;
+    }
+
+    public void setCola(ColaCircular cola) {
+        this.cola = cola;
     }
     
 }
