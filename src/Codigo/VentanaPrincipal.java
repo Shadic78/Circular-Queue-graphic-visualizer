@@ -1,12 +1,20 @@
 package Codigo;
 
 import Cola.ColaCircular;
+import Vista.DrawAnillo;
 import Vista.DrawCola;
+import Vista.DrawFlechas;
+import Vista.DrawIndices;
+import Vista.DrawValores;
 import Vista.Menu;
 import processing.core.*;
 
 public class VentanaPrincipal extends PApplet {
-    private DrawCola anillo;
+    private DrawAnillo anillo;    
+    private DrawIndices indices;
+    private DrawValores valores;
+    private DrawFlechas flechas;
+    private DrawCola dibujarCola;
     private Menu menu;
     private ColaCircular cola;
     int colorBackground = color(12,32,123);
@@ -27,18 +35,39 @@ public class VentanaPrincipal extends PApplet {
         menu.setLocationRelativeTo(null);
         menu.setVisible(true);
         
-        anillo = new DrawCola(cola, this);
+        anillo = new DrawAnillo(this, cola, this.width / 2, this.height / 2, this.width / 2);
         anillo.setColorBackground(colorBackground);
+        anillo.setColorBordes(0);
+        anillo.setColorCeldasOcupadas(color(12, 234, 74));
+        anillo.setColorCeldasVacias(color(255, 255, 255));
+        
+        indices = new DrawIndices(this, cola, this.width / 2, this.height / 2, this.width / 2);
+        valores = new DrawValores(this, cola, this.width / 2, this.height / 2, this.width / 2);
+        
+        flechas = new DrawFlechas(this, cola, this.width / 2, this.height / 2, this.width / 2, 10);
+        flechas.setColorFlechaInicial(color(242, 75, 217));
+        flechas.setColorFlechaFinal(color(247, 84, 59));
+        flechas.setTamFlecha(10);
+
+        dibujarCola = new DrawCola(cola, this);
+        dibujarCola.setAnillo(anillo);
+        dibujarCola.setIndices(indices);
+        dibujarCola.setValores(valores);
+        dibujarCola.setFlechas(flechas);
     }
     
     @Override
     public void draw() {
         background(colorBackground);
-        anillo.draw();
+        dibujarCola.draw();
     }
 
     public void cambiarCola(ColaCircular cola) {
+        dibujarCola.setCola(cola);
         anillo.setCola(cola);
+        indices.setCola(cola);
+        valores.setCola(cola);
+        flechas.setCola(cola);
         setCola(cola);
     }
     

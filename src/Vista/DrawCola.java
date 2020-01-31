@@ -4,6 +4,11 @@ import Cola.ColaCircular;
 import processing.core.PApplet;
 
 public class DrawCola {
+    private DrawAnillo anillo;
+    private DrawIndices indices;
+    private DrawValores valores;
+    private DrawFlechas flechas;
+    
     private ColaCircular cola;
     private PApplet p;
     private int diametroAnillo;
@@ -38,112 +43,12 @@ public class DrawCola {
     public void draw() {
         this.numCeldas = cola.getMaxSize(); 
         this.anguloCeldas = PApplet.radians(360 / numCeldas);                
-        dibujarAnillo();
-        dibujarIndices();
-        dibujarValores();
-        dibujarFlechas();
+        anillo.draw();
+        indices.draw();
+        valores.draw();
+        flechas.draw();
         dibujarSimbologia();
-    }
-    
-    public void dibujarAnillo() {
-        for (int i = 0; i < numCeldas; i++) {
-            // Si i esta en el rango de celdas ocupadas de la cola se rellena con cierto color 
-            if (i >= cola.getInicio() && i < cola.getInicio() + cola.getActualSize() || i < getDesbordamientoCola()) {
-                p.fill(colorCeldasOcupadas);
-            } else {
-                p.fill(colorCeldasVacias);
-            }
-            p.stroke(colorBordes);
-            p.arc(coordX, coordY,
-                    diametroAnillo, diametroAnillo,
-                    anguloInicial, anguloInicial + anguloCeldas, PApplet.PIE);
-            anguloInicial += anguloCeldas;
-        }
-        anguloInicial = -(PApplet.PI) / 2;
-
-        // Circulo que da la ilusion de que se esta dibujando un anillo
-        p.fill(colorBackground);
-        p.stroke(colorBordes);
-        p.ellipse(p.width / 2, p.height / 2, diametroAnillo / 2, diametroAnillo / 2);
-    }
-    
-    public void dibujarIndices() {
-        float anguloAux = anguloInicial;
-        float x, y;
-        for(int i = 0; i < numCeldas; i++) {
-            x = (float) ((diametroAnillo / 2 + 25)*Math.cos(anguloAux + (anguloCeldas / 2)));
-            y = (float) ((diametroAnillo / 2 + 25)*Math.sin(anguloAux + (anguloCeldas / 2)));            
-            anguloAux += anguloCeldas;
-
-            p.fill(255);
-            p.text("[" + i + "]", x + coordX, y + coordY);
-        }
-    }
-    
-    public void dibujarValores() {
-        float anguloAux = anguloInicial;
-        float x, y, radio;
-        for(int i = 0; i < numCeldas; i++) {
-            // Coordenadas donde se imprimira el texto
-            radio = 3 * (diametroAnillo / 8);
-            x = (float) (radio * Math.cos(anguloAux + (anguloCeldas / 2)));
-            y = (float) (radio * Math.sin(anguloAux + (anguloCeldas / 2)));            
-            anguloAux += anguloCeldas;
-            
-       
-            /********* Solo imprimir el valor de las celdas ocupadas **********/
-            if (i >= cola.getInicio() && i < cola.getInicio() + cola.getActualSize() || i < getDesbordamientoCola()) {
-                p.fill(0);
-                p.text(cola.getCola()[i], x + coordX, y + coordY);
-            }          
-
-        }
-    }    
-    
-    private int getDesbordamientoCola() {
-        /******** Obtener el rango de celdas ocupadas *******/
-        int finCola = cola.getInicio() + cola.getActualSize();
-        int desbordamiento = 0;
-        if (finCola > cola.getMaxSize()) {
-            desbordamiento = finCola % cola.getMaxSize();
-        }        
-        return desbordamiento;
-    }
-    
-    private void dibujarFlechas() {
-        dibujarFlechaInicio();
-        if(!cola.colaVacia()) {
-            dibujarFlechaFinal();            
-        }
-        
-        p.fill(95, 98, 107);
-        p.ellipse(coordX, coordY, tamFlecha * 3, tamFlecha * 3);        
-    }
-    
-    private void dibujarFlechaInicio() {
-        float anguloCeldaInicial = anguloInicial + ( anguloCeldas * cola.getInicio() ) + (anguloCeldas / 2);
-        
-        p.pushMatrix();
-        p.translate(coordX, coordY);
-        // Flecha que apunta al indice inicial
-        p.rotate(anguloCeldaInicial);
-        p.fill(colorFlechaInicial);
-        p.triangle(-tamFlecha, -tamFlecha, -tamFlecha, tamFlecha, tamFlecha * 5, 0);   
-        p.popMatrix();
-        
-    }
-    
-    private void dibujarFlechaFinal() {
-        float anguloCeldaFinal = anguloInicial + ( anguloCeldas * (cola.getInicio() + cola.getActualSize() - 1)) + (anguloCeldas / 2);     
-        
-        p.pushMatrix();
-        p.translate(coordX, coordY);
-        // Flecha que apunta al indice final
-        p.rotate(anguloCeldaFinal);
-        p.fill(colorFlechaFinal);
-        p.triangle(-tamFlecha, -tamFlecha, -tamFlecha, tamFlecha, tamFlecha * 5, 0);
-        p.popMatrix();      
-    }
+    } 
     
     private void dibujarSimbologia() {
         p.fill(255);
@@ -187,6 +92,38 @@ public class DrawCola {
 
     public void setColorBackground(int colorBackground) {
         this.colorBackground = colorBackground;
+    }
+
+    public DrawAnillo getAnillo() {
+        return anillo;
+    }
+
+    public void setAnillo(DrawAnillo anillo) {
+        this.anillo = anillo;
+    }
+
+    public DrawIndices getIndices() {
+        return indices;
+    }
+
+    public void setIndices(DrawIndices indices) {
+        this.indices = indices;
+    }
+
+    public DrawValores getValores() {
+        return valores;
+    }
+
+    public void setValores(DrawValores valores) {
+        this.valores = valores;
+    }
+
+    public DrawFlechas getFlechas() {
+        return flechas;
+    }
+
+    public void setFlechas(DrawFlechas flechas) {
+        this.flechas = flechas;
     }
     
 }
