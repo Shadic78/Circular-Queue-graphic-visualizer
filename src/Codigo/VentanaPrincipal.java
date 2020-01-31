@@ -5,6 +5,7 @@ import Vista.DrawAnillo;
 import Vista.DrawCola;
 import Vista.DrawFlechas;
 import Vista.DrawIndices;
+import Vista.DrawSimbologia;
 import Vista.DrawValores;
 import Vista.Menu;
 import processing.core.*;
@@ -14,6 +15,7 @@ public class VentanaPrincipal extends PApplet {
     private DrawIndices indices;
     private DrawValores valores;
     private DrawFlechas flechas;
+    private DrawSimbologia simbologia;
     private DrawCola dibujarCola;
     private Menu menu;
     private ColaCircular cola;
@@ -48,12 +50,17 @@ public class VentanaPrincipal extends PApplet {
         flechas.setColorFlechaInicial(color(242, 75, 217));
         flechas.setColorFlechaFinal(color(247, 84, 59));
         flechas.setTamFlecha(10);
+        
+        simbologia = new DrawSimbologia(this);
+        simbologia.setColorFlechaInicial(color(242, 75, 217));
+        simbologia.setColorFlechaFinal(color(247, 84, 59));        
 
-        dibujarCola = new DrawCola(cola, this);
+        dibujarCola = new DrawCola();
         dibujarCola.setAnillo(anillo);
         dibujarCola.setIndices(indices);
         dibujarCola.setValores(valores);
         dibujarCola.setFlechas(flechas);
+        dibujarCola.setSimbologia(simbologia);
     }
     
     @Override
@@ -63,7 +70,6 @@ public class VentanaPrincipal extends PApplet {
     }
 
     public void cambiarCola(ColaCircular cola) {
-        dibujarCola.setCola(cola);
         anillo.setCola(cola);
         indices.setCola(cola);
         valores.setCola(cola);
