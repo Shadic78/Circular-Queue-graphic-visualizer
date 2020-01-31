@@ -3,7 +3,7 @@ package Vista;
 import Cola.ColaCircular;
 import processing.core.PApplet;
 
-public class AnilloCola {
+public class DrawCola {
     private ColaCircular cola;
     private PApplet p;
     private int diametroAnillo;
@@ -20,7 +20,7 @@ public class AnilloCola {
     private int coordX, coordY;
     private int tamFlecha;
     
-    public AnilloCola(ColaCircular cola, PApplet parent) {
+    public DrawCola(ColaCircular cola, PApplet parent) {
         this.cola = cola;
         this.p = parent;
         definirValores();
